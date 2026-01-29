@@ -18,6 +18,7 @@ import {
   UserCircleIcon,
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
+import { UsersIcon } from "@phosphor-icons/react";
 
 type NavItem = {
   name: string;
@@ -28,9 +29,9 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <GridIcon />,
-    name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    icon: <UsersIcon size={24} />,
+    name: "Admin Menu",
+    subItems: [{ name: "Daftar Anggota", path: "/", pro: false }],
   },
   {
     icon: <CalenderIcon />,

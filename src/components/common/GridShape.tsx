@@ -4,19 +4,19 @@ import React from "react";
 export default function GridShape() {
   return (
     <>
-      <div className="absolute right-0 top-0 -z-1 w-full max-w-[250px] xl:max-w-[450px]">
+      <div className="absolute right-0 top-2 -z-1 w-full max-w-[250px]">
         <Image
           width={540}
           height={254}
-          src="/images/shape/grid-01.svg"
+          src="/images/elements/glass-pie-chart.png"
           alt="grid"
         />
       </div>
-      <div className="absolute bottom-0 left-0 -z-1 w-full max-w-[250px] rotate-180 xl:max-w-[450px]">
+      <div className="absolute bottom-[-25] left-5 -z-1 w-full max-w-[250px]">
         <Image
           width={540}
           height={254}
-          src="/images/shape/grid-01.svg"
+          src="/images/elements/bubble-message.png"
           alt="grid"
         />
       </div>

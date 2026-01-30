@@ -16,6 +16,11 @@ import {
   PlugInIcon,
   TableIcon,
   UserCircleIcon,
+  CheckCircleIcon,
+  DocsIcon,
+  PaperPlaneIcon,
+  DollarLineIcon,
+  BellIcon,
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
 
@@ -23,7 +28,7 @@ type NavItem = {
   name: string;
   icon: React.ReactNode;
   path?: string;
-  subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
+  subItems?: { name: string; path: string; icon?: React.ReactNode; pro?: boolean; new?: boolean }[];
 };
 
 const navItems: NavItem[] = [
@@ -42,11 +47,38 @@ const navItems: NavItem[] = [
     name: "User Profile",
     path: "/profile",
   },
-
+  {
+    icon: <PieChartIcon />,
+    name: "Project Management",
+    subItems: [
+      { name: "Dashboard Timeline", path: "/gantt-chart", icon: <CalenderIcon />, pro: false },
+      { name: "Kanban Board", path: "/kanban-board", icon: <GridIcon />, pro: false },
+      { name: "Cross-Division Request", path: "/cross-division-request", icon: <PaperPlaneIcon />, pro: false },
+      { name: "Approval System", path: "/approval-system", icon: <CheckCircleIcon />, pro: false },
+    ],
+  },
   {
     name: "Forms",
     icon: <ListIcon />,
     subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  },
+  {
+    name: "Admin",
+    icon: <BoxCubeIcon />,
+    subItems: [
+      { name: "Database Anggota", path: "/administrasi?modal=database", icon: <UserCircleIcon />, pro: false },
+      { name: "Sistem Absensi", path: "/administrasi?modal=absensi", icon: <CheckCircleIcon />, pro: false },
+      { name: "Repository Dokumen", path: "/administrasi?modal=dokumen", icon: <DocsIcon />, pro: false },
+    ],
+  },
+  {
+    name: "Support Features",
+    icon: <BellIcon />,
+    subItems: [
+      { name: "Kalender Terintegrasi", path: "/kalender-terintegrasi", icon: <CalenderIcon />, pro: false },
+      { name: "Transparansi Kas", path: "/transparansi-kas", icon: <DollarLineIcon />, pro: false },
+      { name: "Sistem Notifikasi", path: "/notifikasi", icon: <BellIcon />, pro: false },
+    ],
   },
   {
     name: "Tables",
@@ -188,6 +220,15 @@ const AppSidebar: React.FC = () => {
                           : "menu-dropdown-item-inactive"
                       }`}
                     >
+                      {subItem.icon && (
+                        <span className={`w-4 h-4 ${
+                          isActive(subItem.path)
+                            ? "text-brand-500 dark:text-brand-400"
+                            : "text-gray-500 dark:text-gray-400"
+                        }`}>
+                          {subItem.icon}
+                        </span>
+                      )}
                       {subItem.name}
                       <span className="flex items-center gap-1 ml-auto">
                         {subItem.new && (

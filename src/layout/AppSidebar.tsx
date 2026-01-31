@@ -23,7 +23,6 @@ import {
   BellIcon,
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
-import { UsersIcon, ShieldStarIcon, ShieldStar } from "@phosphor-icons/react";
 
 type NavItem = {
   name: string;
@@ -34,12 +33,12 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <ShieldStarIcon size={24} />,
+    icon: <GridIcon />,
     name: "Menu Admin",
     subItems: [{ name: "Daftar Anggota", path: "/", pro: false }],
   },
   {
-    icon: <UsersIcon size={24} />,
+    icon: <UserCircleIcon />,
     name: "Menu Staff",
     subItems: [{ name: "Kas Organisasi", path: "/", pro: false }],
   },

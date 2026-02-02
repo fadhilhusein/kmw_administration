@@ -36,7 +36,10 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Menu Admin",
-    subItems: [{ name: "Daftar Anggota", path: "/", pro: false }],
+    subItems: [
+      { name: "Dashboard Admin", path: "/administrasi", pro: false },
+      { name: "Tambah Anggota Baru", path: "/tambah-anggota", pro: false },
+    ],
   },
   {
     icon: <UserCircleIcon />,
@@ -67,15 +70,6 @@ const navItems: NavItem[] = [
     name: "Forms",
     icon: <ListIcon />,
     subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Admin",
-    icon: <BoxCubeIcon />,
-    subItems: [
-      { name: "Database Anggota", path: "/administrasi?modal=database", pro: false },
-      { name: "Sistem Absensi", path: "/administrasi?modal=absensi", pro: false },
-      { name: "Repository Dokumen", path: "/administrasi?modal=dokumen", pro: false },
-    ],
   },
   {
     name: "Support Features",

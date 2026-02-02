@@ -1,4 +1,5 @@
-import AdministrasiMenu from "@/components/administrasi/AdministrasiMenu";
+import FormTambahAnggota from "@/components/administrasi/FormTambahAnggota";
+import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
 export default function BlankPage() {
   return (
     <div>
-      <AdministrasiMenu />
+      <PageBreadcrumb pageTitle="Form Tambah Anggota" />
+      <FormTambahAnggota />
     </div>
   );
 }

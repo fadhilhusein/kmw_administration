@@ -1,28 +1,23 @@
 "use client";
-import Checkbox from "@/components/form/input/Checkbox";
-import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useState } from "react";
-import { apiService, RegisterMemberRequest } from "@/services/api";
+import { apiService, ActivateAccountRequest } from "@/services/api";
 
-export default function SignUpForm() {
+export default function ActivateAccountForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   
   // Form data state
   const [formData, setFormData] = useState({
-    name: '',
     nim: '',
-    divisionCode: '',
-    role: '', // No default role - user must select
-    password: '',
-    activationToken: ''
+    code: '',
+    password: ''
   });
+
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar">
       <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
@@ -38,10 +33,10 @@ export default function SignUpForm() {
         <div>
           <div className="mb-5 sm:mb-8">
             <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
-              Sign Up
+              Activate Account
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Masukan kode yang diberikan oleh manajer divisi masing-masing
+              Masukan NIM, kode aktivasi, dan password untuk mengaktifkan akun
             </p>
           </div>
           <div>
@@ -61,24 +56,7 @@ export default function SignUpForm() {
 
             <form onSubmit={handleSubmit}>
               <div className="space-y-5">
-                {/* <!-- Nama Lengkap --> */}
-                <div>
-                  <Label>
-                    Nama Lengkap<span className="text-error-500">*</span>
-                  </Label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Masukan nama lengkap kamu"
-                    className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                    required
-                  />
-                </div>
-
-                {/* <!-- NIM Mahasiswa --> */}
+                {/* NIM */}
                 <div>
                   <Label>
                     NIM<span className="text-error-500">*</span>
@@ -95,52 +73,50 @@ export default function SignUpForm() {
                   />
                 </div>
 
-                {/* <!-- Kode Divisi --> */}
+                {/* Activation Code */}
                 <div>
                   <Label>
-                    Kode Divisi<span className="text-error-500">*</span>
+                    Kode Aktivasi<span className="text-error-500">*</span>
                   </Label>
-                  <select
-                    id="divisionCode"
-                    name="divisionCode"
-                    value={formData.divisionCode}
-                    onChange={handleSelectChange}
-                    className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm"
+                  <input
+                    type="text"
+                    id="code"
+                    name="code"
+                    value={formData.code}
+                    onChange={handleInputChange}
+                    placeholder="Masukan kode aktivasi"
+                    className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     required
-                  >
-                    <option value="">Pilih Divisi</option>
-                    <option value="BPH">BPH</option>
-                    <option value="BD">BD</option>
-                    <option value="BE">BE</option>
-                    <option value="NP">NP</option>
-                    <option value="HRD">HRD</option>
-                    <option value="EO">EO</option>
-                    <option value="CM">CM</option>
-                  </select>
+                  />
                 </div>
 
-                {/* <!-- Role --> */}
+                {/* Password */}
                 <div>
                   <Label>
-                    Role<span className="text-error-500">*</span>
+                    Password<span className="text-error-500">*</span>
                   </Label>
-                  <select
-                    id="role"
-                    name="role"
-                    value={formData.role}
-                    onChange={handleSelectChange}
-                    className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm"
-                    required
-                  >
-                    <option value="">Pilih Role</option>
-                    <option value="KETUA">Ketua</option>
-                    <option value="MANAJER">Manajer</option>
-                    <option value="STAFF">Staff</option>
-                    <option value="ADMIN">Admin</option>
-                  </select>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Masukan password baru"
+                      className="w-full px-3 py-2 pr-10 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    >
+                      {showPassword ? <EyeCloseIcon /> : <EyeIcon />}
+                    </button>
+                  </div>
                 </div>
 
-                {/* <!-- Button --> */}
+                {/* Submit Button */}
                 <div>
                   <button 
                     type="submit"
@@ -153,33 +129,24 @@ export default function SignUpForm() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Mendaftar...
+                        Mengaktifkan...
                       </>
                     ) : (
-                      'Sign Up'
+                      'Activate Account'
                     )}
                   </button>
                 </div>
               </div>
             </form>
 
-            <div className="mt-5 space-y-2">
+            <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-                Sudah memiliki akun?{' '}
+                Akun sudah aktif?{' '}
                 <Link
                   href="/signin"
                   className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
                 >
                   Sign In
-                </Link>
-              </p>
-              <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-                Sudah mendaftar dan punya kode aktivasi?{' '}
-                <Link
-                  href="/activate"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
-                >
-                  Activate Account
                 </Link>
               </p>
             </div>
@@ -200,16 +167,6 @@ export default function SignUpForm() {
     if (error) setError(null);
   }
 
-  function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear error when user makes selection
-    if (error) setError(null);
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
@@ -218,34 +175,35 @@ export default function SignUpForm() {
 
     try {
       // Validate required fields
-      if (!formData.name || !formData.nim || !formData.divisionCode || !formData.role) {
+      if (!formData.nim || !formData.code || !formData.password) {
         throw new Error('Semua field wajib diisi');
       }
 
+      // Validate password length
+      if (formData.password.length < 6) {
+        throw new Error('Password minimal 6 karakter');
+      }
+
       // Prepare data for API
-      const registerData: RegisterMemberRequest = {
-        name: formData.name,
+      const activateData: ActivateAccountRequest = {
         nim: formData.nim,
-        divisionCode: formData.divisionCode,
-        role: formData.role
+        code: formData.code,
+        password: formData.password
       };
 
       // Call API
-      const response = await apiService.registerMember(registerData);
+      const response = await apiService.activateAccount(activateData);
 
       if (response.success) {
-        setSuccess('Pendaftaran berhasil! Silakan cek email untuk aktivasi akun.');
+        setSuccess('Akun berhasil diaktifkan! Silakan login dengan akun Anda.');
         // Reset form
         setFormData({
-          name: '',
           nim: '',
-          divisionCode: '',
-          role: '',
-          password: '',
-          activationToken: ''
+          code: '',
+          password: ''
         });
       } else {
-        setError(response.error || 'Terjadi kesalahan saat mendaftar');
+        setError(response.error || 'Terjadi kesalahan saat mengaktifkan akun');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Terjadi kesalahan yang tidak diketahui');

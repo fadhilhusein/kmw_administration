@@ -76,25 +76,7 @@ const DatabaseAnggotaModal: React.FC<DatabaseAnggotaModalProps> = ({ onClose }) 
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="flex items-start sm:items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-          <div className="flex items-start sm:items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
-            <div className="p-1.5 sm:p-2 bg-blue-50 dark:bg-blue-500/10 rounded-lg flex-shrink-0">
-              <UserCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h2 className="text-base sm:text-xl font-semibold text-gray-900 dark:text-white truncate">
-                Database Anggota
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">
-                Kelola data profil & struktur
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0 ml-1 sm:ml-2"
-          >
-            <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
-          </button>
+          
         </div>
 
         {/* Tabs */}

@@ -85,18 +85,9 @@ export default function SignInForm() {
 
             <div className="mt-5 space-y-2">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-                Don&apos;t have an account? {""}
+                Akun kamu belum aktif?{' '}
                 <Link
                   href="/signup"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
-                >
-                  Sign Up
-                </Link>
-              </p>
-              <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-                Need to activate your account?{' '}
-                <Link
-                  href="/activate"
                   className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
                 >
                   Activate Account

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import DatabaseAnggotaModal from "@/components/administrasi/modals/DatabaseAnggotaModal";
-import SistemAbsensiModal from "@/components/administrasi/modals/SistemAbsensiModal";
-import RepositoryDokumenModal from "@/components/administrasi/modals/RepositoryDokumenModal";
+import DatabaseAnggotaModal from "@/components/administrasi(Backup)/modals/DatabaseAnggotaModal";
+import SistemAbsensiModal from "@/components/administrasi(Backup)/modals/SistemAbsensiModal";
+import RepositoryDokumenModal from "@/components/administrasi(Backup)/modals/RepositoryDokumenModal";
 
 type ModalType = "database" | "absensi" | "dokumen" | null;
 

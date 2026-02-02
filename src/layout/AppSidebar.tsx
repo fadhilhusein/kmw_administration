@@ -20,9 +20,10 @@ import {
   DocsIcon,
   PaperPlaneIcon,
   DollarLineIcon,
-  BellIcon,
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
+
+import {BellIcon} from "@phosphor-icons/react";
 
 type NavItem = {
   name: string;
@@ -56,10 +57,10 @@ const navItems: NavItem[] = [
     icon: <PieChartIcon />,
     name: "Project Management",
     subItems: [
-      { name: "Dashboard Timeline", path: "/gantt-chart", icon: <CalenderIcon />, pro: false },
-      { name: "Kanban Board", path: "/kanban-board", icon: <GridIcon />, pro: false },
-      { name: "Cross-Division Request", path: "/cross-division-request", icon: <PaperPlaneIcon />, pro: false },
-      { name: "Approval System", path: "/approval-system", icon: <CheckCircleIcon />, pro: false },
+      { name: "Dashboard Timeline", path: "/gantt-chart",pro: false },
+      { name: "Kanban Board", path: "/kanban-board", pro: false },
+      { name: "Cross-Division Request", path: "/cross-division-request", pro: false },
+      { name: "Approval System", path: "/approval-system", pro: false },
     ],
   },
   {
@@ -71,18 +72,18 @@ const navItems: NavItem[] = [
     name: "Admin",
     icon: <BoxCubeIcon />,
     subItems: [
-      { name: "Database Anggota", path: "/administrasi?modal=database", icon: <UserCircleIcon />, pro: false },
-      { name: "Sistem Absensi", path: "/administrasi?modal=absensi", icon: <CheckCircleIcon />, pro: false },
-      { name: "Repository Dokumen", path: "/administrasi?modal=dokumen", icon: <DocsIcon />, pro: false },
+      { name: "Database Anggota", path: "/administrasi?modal=database", pro: false },
+      { name: "Sistem Absensi", path: "/administrasi?modal=absensi", pro: false },
+      { name: "Repository Dokumen", path: "/administrasi?modal=dokumen", pro: false },
     ],
   },
   {
     name: "Support Features",
-    icon: <BellIcon />,
+    icon: <BellIcon width={24} height={24}/>,
     subItems: [
-      { name: "Kalender Terintegrasi", path: "/kalender-terintegrasi", icon: <CalenderIcon />, pro: false },
-      { name: "Transparansi Kas", path: "/transparansi-kas", icon: <DollarLineIcon />, pro: false },
-      { name: "Sistem Notifikasi", path: "/notifikasi", icon: <BellIcon />, pro: false },
+      { name: "Kalender Terintegrasi", path: "/kalender-terintegrasi", pro: false },
+      { name: "Transparansi Kas", path: "/transparansi-kas", pro: false },
+      { name: "Sistem Notifikasi", path: "/notifikasi", pro: false },
     ],
   },
   {
@@ -359,22 +360,22 @@ const AppSidebar: React.FC = () => {
             <>
               <Image
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src="/images/logo/kmw.svg"
                 alt="Logo"
-                width={150}
-                height={40}
+                width={130}
+                height={30}
               />
               <Image
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/kmw.svg"
                 alt="Logo"
-                width={150}
-                height={40}
+                width={130}
+                height={30}
               />
             </>
           ) : (
             <Image
-              src="/images/logo/logo-icon.svg"
+              src="/images/logo/kmw.svg"
               alt="Logo"
               width={32}
               height={32}

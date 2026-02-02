@@ -1,124 +1,122 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useActionState, useEffect, useState } from 'react';
 import ComponentCard from '../common/ComponentCard';
 import Label from '../form/Label';
 import Input from '../form/input/InputField';
 import Select from '../form/Select';
-import { ChevronDownIcon, EyeCloseIcon, EyeIcon, TimeIcon } from '../../icons';
-import DatePicker from '@/components/form/date-picker';
+import { ChevronDownIcon } from '../../icons';
+import { CheckCircleIcon } from '@phosphor-icons/react';
+import { addToast } from '@heroui/react';
 
-export default function FormTambahAnggota() {
+interface TambahAnggota {
+  handler?: any
+}
+
+const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
+  const [state, action, isPending] = useActionState(handler, undefined)
   const [showPassword, setShowPassword] = useState(false);
-  const options = [
-    { value: "marketing", label: "Marketing" },
-    { value: "template", label: "Template" },
-    { value: "development", label: "Development" },
+
+  useEffect(() => {
+    if (state?.success) {
+      addToast({
+        title: "Toast title",
+        description: "Toast displayed successfully",
+        color: "success",
+      })
+    } else if (!state?.success && state !== undefined) {
+      addToast({
+        title: "Toast title",
+        description: "Toast displayed successfully",
+        color: "success",
+      })
+    }
+    addToast({
+        title: "Toast title",
+        description: "Toast displayed successfully",
+        color: "success",
+      })
+  }, [state])
+  
+  const option_divisi = [
+    { value: "CM", label: "CM" },
+    { value: "BPH", label: "BPH" },
+    { value: "EO", label: "EO" },
+    { value: "BD", label: "BD" },
+    { value: "BE", label: "BE" },
+    { value: "HRD", label: "HRD" },
+    { value: "NP", label: "NP" },
   ];
+  const option_jabatan = [
+    {value: "STAFF", label: "Staff"},
+    {value: "MANAJER", label: "Manajer"},
+  ]
   const handleSelectChange = (value: string) => {
     console.log("Selected value:", value);
   };
   return (
-    <ComponentCard title=''>
-      <div className="space-y-6">
-        <div>
-          <Label>Nama Anggota</Label>
-          <Input type="text"/>
-        </div>
-        <div>
-          <Label>Nim Anggota</Label>
-          <Input type="number" className='no-arrows'/>
-        </div>
-        <div>
-          <Label>Input with Placeholder</Label>
-          <Input type="text" placeholder="info@gmail.com" />
-        </div>
-        <div>
-          <Label>Select Input</Label>
-          <div className="relative">
-            <Select
-            options={options}
-            placeholder="Select an option"
-            onChange={handleSelectChange}
-            className="dark:bg-dark-900"
-          />
-             <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-              <ChevronDownIcon/>
-            </span>
+    <>
+      <ComponentCard title=''>
+        <form action={action} className="space-y-6">
+          <div>
+            <Label>Nama Anggota</Label>
+            <Input type="text" name='namaAnggota' hint={state?.errors?.nama ? state.errors.nama : ""} error={state?.errors?.nama} require={true}/>
           </div>
-        </div>
-        <div>
-          <Label>Password Input</Label>
-          <div className="relative">
-            <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
+          <div>
+            <Label>Nim Anggota</Label>
+            <Input type="number" name='nimAnggota' className='no-arrows' hint={state?.errors?.nim ? state.errors.nim : ""} error={state?.errors?.nim} require={true}/>
+          </div>
+          <div>
+            <Label>Divisi Anggota</Label>
+            <div className="relative">
+              <Select
+              options={option_divisi}
+              placeholder="Pilih divisi anggota"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-90"
+              name='divisiAnggota'
+              defaultValue={state?.divisi}
+              require={true}
             />
-            <button
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
-            >
-              {showPassword ? (
-                <EyeIcon className="fill-gray-500 dark:fill-gray-400" />
-              ) : (
-                <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400" />
-              )}
-            </button>
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <DatePicker
-            id="date-picker"
-            label="Date Picker Input"
-            placeholder="Select a date"
-            onChange={(dates, currentDateString) => {
-              // Handle your logic
-              console.log({ dates, currentDateString });
-            }}
-          />
-        </div>
-
-        <div>
-          <Label htmlFor="tm">Time Picker Input</Label>
-          <div className="relative">
-            <Input
-              type="time"
-              id="tm"
-              name="tm"
-              onChange={(e) => console.log(e.target.value)}
+          <div>
+            <Label>Posisi Anggota</Label>
+            <div className="relative">
+              <Select
+              options={option_jabatan}
+              placeholder="Pilih Jabatan"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-900"
+              name='jabatanAnggota'
+              defaultValue={state?.jabatan}
+              require={true}
             />
-            <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
-              <TimeIcon />
-            </span>
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <Label htmlFor="tm">Input with Payment</Label>
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Card number"
-              className="pl-[62px]"
-            />
-            <span className="absolute left-0 top-1/2 flex h-11 w-[46px] -translate-y-1/2 items-center justify-center border-r border-gray-200 dark:border-gray-800">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="6.25" cy="10" r="5.625" fill="#E80B26" />
-                <circle cx="13.75" cy="10" r="5.625" fill="#F59D31" />
-                <path
-                  d="M10 14.1924C11.1508 13.1625 11.875 11.6657 11.875 9.99979C11.875 8.33383 11.1508 6.8371 10 5.80713C8.84918 6.8371 8.125 8.33383 8.125 9.99979C8.125 11.6657 8.84918 13.1625 10 14.1924Z"
-                  fill="#FC6020"
-                />
-              </svg>
-            </span>
+          {state?.success ? (
+            <div className='flex items-center text-white px-4 py-2 rounded-md border border-green-600 bg-green-800'>
+              <CheckCircleIcon width={18} height={18} className='mr-2'/>
+              <p>{state?.message}</p>
+            </div>
+          ) : state !== undefined ? (
+            <div className='flex items-center text-white px-4 py-2 rounded-md border border-red-600 bg-red-800'>
+              <CheckCircleIcon width={18} height={18} className='mr-2'/>
+              <p>{state?.message}</p>
+            </div>
+          ) : ""}
+          <div>
+            <button disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</button>
           </div>
-        </div>
-      </div>
-    </ComponentCard>
+        </form>
+      </ComponentCard>
+    </>
   );
 }
+
+export default FormTambahAnggota;

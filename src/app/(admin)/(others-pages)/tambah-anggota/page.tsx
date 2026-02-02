@@ -1,6 +1,7 @@
 import FormTambahAnggota from "@/components/administrasi/FormTambahAnggota";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
+import { registerMember } from "@/action/auth";
 
 export const metadata: Metadata = {
   title: "Next.js Blank Page | TailAdmin - Next.js Dashboard Template",
@@ -11,7 +12,7 @@ export default function BlankPage() {
   return (
     <div>
       <PageBreadcrumb pageTitle="Form Tambah Anggota" />
-      <FormTambahAnggota />
+      <FormTambahAnggota handler={registerMember}/>
     </div>
   );
 }

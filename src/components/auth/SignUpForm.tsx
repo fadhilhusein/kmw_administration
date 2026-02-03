@@ -7,7 +7,7 @@ import Input from "../form/input/InputField";
 import { addToast } from "@heroui/react";
 
 const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
-  const [state, action, isPending] = useActionState(handler ,undefined);
+  const [state, action, isPending] = useActionState<any, any>(handler ,undefined);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {

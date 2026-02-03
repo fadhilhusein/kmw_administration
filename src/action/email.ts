@@ -22,7 +22,7 @@ export async function emailNotification(targetEmail: string, namaAnggota: string
             <h2 style="color: #465fff;">Halo, ${namaAnggota}!</h2>
             <p>Selamat, Anda telah terdaftar sebagai anggota baru di Kelompok Mahasiswa Wirausaha.</p>
             <p>Berikut adalah kode aktivasi akun kamu: ${activationCode}</p>
-            <a href='#'>Aktivasi Akun Kamu Sekarang.</a>
+            <a href=${process.env.LINK_SIGNIN}>Aktivasi Akun Kamu Sekarang.</a>
             <hr style="border: 0; border-top: 1px solid #e4e7ec; margin: 20px 0;" />
             <p style="font-size: 12px; color: #667085;">Email ini dikirim otomatis oleh sistem KMW Admin.</p>
             </div>

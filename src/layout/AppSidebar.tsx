@@ -23,7 +23,8 @@ import {
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
 
-import {BellIcon} from "@phosphor-icons/react";
+import {BellIcon, IdentificationBadgeIcon} from "@phosphor-icons/react";
+import { useAuth } from "@/context/AuthContext";
 
 type NavItem = {
   name: string;
@@ -34,66 +35,22 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <GridIcon />,
-    name: "Menu Admin",
-    subItems: [
-      { name: "Dashboard Admin", path: "/administrasi", pro: false },
-      { name: "Tambah Anggota Baru", path: "/tambah-anggota", pro: false },
-    ],
-  },
-  {
     icon: <UserCircleIcon />,
     name: "Menu Staff",
-    subItems: [{ name: "Kas Organisasi", path: "/", pro: false }],
-  },
-  {
-    icon: <CalenderIcon />,
-    name: "Calendar",
-    path: "/calendar",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-  {
-    icon: <PieChartIcon />,
-    name: "Project Management",
-    subItems: [
-      { name: "Dashboard Timeline", path: "/gantt-chart",pro: false },
-      { name: "Kanban Board", path: "/kanban-board", pro: false },
-      { name: "Cross-Division Request", path: "/cross-division-request", pro: false },
-      { name: "Approval System", path: "/approval-system", pro: false },
-    ],
-  },
-  {
-    name: "Forms",
-    icon: <ListIcon />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Support Features",
-    icon: <BellIcon width={24} height={24}/>,
-    subItems: [
-      { name: "Kalender Terintegrasi", path: "/kalender-terintegrasi", pro: false },
-      { name: "Transparansi Kas", path: "/transparansi-kas", pro: false },
-      { name: "Sistem Notifikasi", path: "/notifikasi", pro: false },
-    ],
-  },
-  {
-    name: "Tables",
-    icon: <TableIcon />,
-    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  },
-  {
-    name: "Pages",
-    icon: <PageIcon />,
-    subItems: [
-      { name: "Blank Page", path: "/blank", pro: false },
-      { name: "404 Error", path: "/error-404", pro: false },
-    ],
+    subItems: [{ name: "Dashboard", path: "/staff/dashboard", pro: false }],
   },
 ];
+
+const adminItems: NavItem[] = [
+  {
+    icon: <IdentificationBadgeIcon width={24} height={24} />,
+    name: "Administrasi",
+    subItems: [
+      { name: "Dashboard Admin", path: "/administrasi/dashboard", pro: false },
+      { name: "Tambah Anggota Baru", path: "/administrasi/tambah-anggota", pro: false },
+    ],
+  }
+]
 
 const othersItems: NavItem[] = [
   {
@@ -129,10 +86,11 @@ const othersItems: NavItem[] = [
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const renderMenuItems = (
     navItems: NavItem[],
-    menuType: "main" | "others"
+    menuType: "main" | "others" | "admin"
   ) => (
     <ul className="flex flex-col gap-4">
       {navItems.map((nav, index) => (
@@ -380,6 +338,26 @@ const AppSidebar: React.FC = () => {
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         <nav className="mb-6">
           <div className="flex flex-col gap-4">
+            {user?.role === "MANAJER" || user?.role === "KETUA" ? (
+
+            <div>
+              <h2
+                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
+                  !isExpanded && !isHovered
+                    ? "lg:justify-center"
+                    : "justify-start"
+                }`}
+              >
+                {isExpanded || isHovered || isMobileOpen ? (
+                  "Admin"
+                ) : (
+                  <HorizontaLDots />
+                )}
+              </h2>
+              {renderMenuItems(adminItems, "admin")}
+            </div>
+            ) : ""}
+
             <div>
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
@@ -395,9 +373,9 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(navItems, "main")}
-            </div>
+            </div>            
 
-            <div className="">
+            {/* <div className="">
               <h2
                 className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
                   !isExpanded && !isHovered
@@ -412,7 +390,7 @@ const AppSidebar: React.FC = () => {
                 )}
               </h2>
               {renderMenuItems(othersItems, "others")}
-            </div>
+            </div> */}
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}

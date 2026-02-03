@@ -13,6 +13,7 @@ export interface ApiResponse<T = any> {
 export interface RegisterMemberRequest {
   name: string;
   nim: string;
+  email: string;
   divisionCode: string;
   role: string;
 }
@@ -38,6 +39,11 @@ export interface ActivateAccountResponse {
   nim: string;
   isActive: boolean;
   message: string;
+}
+
+export interface LoginAccountRequest {
+  nim: string;
+  password: string;
 }
 
 // API Service Class
@@ -85,10 +91,10 @@ class ApiService {
   }
 
   // Sign In (placeholder for future implementation)
-  async signIn(email: string, password: string): Promise<ApiResponse<any>> {
-    return this.makeRequest('/auth/signin', {
+  async signIn(data: LoginAccountRequest): Promise<ApiResponse<any>> {
+    return this.makeRequest('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(data),
     });
   }
 

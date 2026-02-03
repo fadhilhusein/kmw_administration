@@ -7,6 +7,7 @@ import Select from '../form/Select';
 import { ChevronDownIcon } from '../../icons';
 import { CheckCircleIcon } from '@phosphor-icons/react';
 import { addToast } from '@heroui/react';
+import { emailNotification } from '@/action/email';
 
 interface TambahAnggota {
   handler?: any
@@ -17,24 +18,23 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (state?.success) {
-      addToast({
-        title: "Toast title",
-        description: "Toast displayed successfully",
-        color: "success",
-      })
-    } else if (!state?.success && state !== undefined) {
-      addToast({
-        title: "Toast title",
-        description: "Toast displayed successfully",
-        color: "success",
-      })
+    if (state?.success !== undefined) {
+      if (state.success) {
+        addToast({
+          title: "Berhasil menambah anggota",
+          description: "Anggota baru berhasil ditambahkan",
+          color: "success",
+        })
+        console.log(state.message)
+        emailNotification(state.message?.data?.email, state.message?.data?.name, state.message?.data?.activationCode);
+      } else if (!state.success) {
+        addToast({
+          title: "Gagal menambah anggota",
+          description: state.message,
+          color: "danger",
+        })
+      }
     }
-    addToast({
-        title: "Toast title",
-        description: "Toast displayed successfully",
-        color: "success",
-      })
   }, [state])
   
   const option_divisi = [
@@ -59,11 +59,15 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
         <form action={action} className="space-y-6">
           <div>
             <Label>Nama Anggota</Label>
-            <Input type="text" name='namaAnggota' hint={state?.errors?.nama ? state.errors.nama : ""} error={state?.errors?.nama} require={true}/>
+            <Input defaultValue={state?.fields?.nama} type="text" name='namaAnggota' hint={state?.errors?.nama ? state.errors.nama : ""} error={state?.errors?.nama} require={true} placeholder='Pria Solo'/>
           </div>
           <div>
             <Label>Nim Anggota</Label>
-            <Input type="number" name='nimAnggota' className='no-arrows' hint={state?.errors?.nim ? state.errors.nim : ""} error={state?.errors?.nim} require={true}/>
+            <Input defaultValue={state?.fields?.nim} type="number" name='nimAnggota' className='no-arrows' hint={state?.errors?.nim ? state.errors.nim : ""} error={state?.errors?.nim} require={true} placeholder='12010124380106'/>
+          </div>
+          <div>
+            <Label>Email Anggota</Label>
+            <Input defaultValue={state?.fields?.email} type="email" name='emailAnggota' hint={state?.errors?.email ? state.errors.email : ""} error={state?.errors?.email} require={true} placeholder='sawit@gmail.com'/>
           </div>
           <div>
             <Label>Divisi Anggota</Label>
@@ -74,7 +78,6 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
               onChange={handleSelectChange}
               className="dark:bg-dark-90"
               name='divisiAnggota'
-              defaultValue={state?.divisi}
               require={true}
             />
               <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
@@ -91,7 +94,6 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
               onChange={handleSelectChange}
               className="dark:bg-dark-900"
               name='jabatanAnggota'
-              defaultValue={state?.jabatan}
               require={true}
             />
               <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
@@ -99,17 +101,6 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
               </span>
             </div>
           </div>
-          {state?.success ? (
-            <div className='flex items-center text-white px-4 py-2 rounded-md border border-green-600 bg-green-800'>
-              <CheckCircleIcon width={18} height={18} className='mr-2'/>
-              <p>{state?.message}</p>
-            </div>
-          ) : state !== undefined ? (
-            <div className='flex items-center text-white px-4 py-2 rounded-md border border-red-600 bg-red-800'>
-              <CheckCircleIcon width={18} height={18} className='mr-2'/>
-              <p>{state?.message}</p>
-            </div>
-          ) : ""}
           <div>
             <button disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</button>
           </div>

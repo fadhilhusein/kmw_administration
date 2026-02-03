@@ -1,3 +1,4 @@
+import { loginMember } from "@/action/auth";
 import SignInForm from "@/components/auth/SignInForm";
 import { Metadata } from "next";
 
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SignIn() {
-  return <SignInForm />;
+  return <SignInForm handler={loginMember}/>;
 }

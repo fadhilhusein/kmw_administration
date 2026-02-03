@@ -4,23 +4,30 @@ import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
+import { addToast } from "@heroui/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
-export default function SignInForm() {
+const SignInForm: React.FC<{handler: any}> = ({handler}) => {
+  const [state, action, isPending] = useActionState(handler, undefined)
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (state?.success !== undefined) {
+      if (!state.success) {
+        console.log(state.message)
+        addToast({
+          title: "Gagal login",
+          description: state.message,
+          color: "danger",
+        })
+      }
+    }
+  }, [state])
+
   return (
     <div className="flex flex-col flex-1 lg:w-1/2 w-full">
-      <div className="w-full max-w-md sm:pt-10 mx-auto mb-5">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-        >
-          <ChevronLeftIcon />
-          Back to dashboard
-        </Link>
-      </div>
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
           <div className="mb-5 sm:mb-8">
@@ -32,13 +39,13 @@ export default function SignInForm() {
             </p>
           </div>
           <div>
-            <form>
+            <form action={action}>
               <div className="space-y-6">
                 <div>
                   <Label>
-                    Email <span className="text-error-500">*</span>{" "}
+                    NIM <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" type="email" />
+                  <Input require={true} defaultValue={state?.fields?.nim} placeholder="12010128410207" type="text" name="nimAnggota" hint={state?.errors?.nim ? state.errors.nim : ""} error={state?.errors?.nim}/>
                 </div>
                 <div>
                   <Label>
@@ -48,6 +55,8 @@ export default function SignInForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      name="passwordAnggota"
+                      defaultValue={state?.fields?.password}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -60,8 +69,18 @@ export default function SignInForm() {
                       )}
                     </span>
                   </div>
+                  {state?.errors?.password ? (
+                    <div className="bg-red-800 border border-red-600 mt-4 p-2 rounded-md text-red-200">
+                      <p>Password setidaknya:</p>
+                      <ul className="list-disc list-inside ml-4">
+                        {state?.errors?.password.map((error:any, index:any) => {
+                          return <li key={index}>{error}</li>
+                        })}
+                      </ul>
+                    </div>
+                  ) : ""}
                 </div>
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Checkbox checked={isChecked} onChange={setIsChecked} />
                     <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
@@ -74,10 +93,10 @@ export default function SignInForm() {
                   >
                     Forgot password?
                   </Link>
-                </div>
+                </div> */}
                 <div>
-                  <Button className="w-full" size="sm">
-                    Sign in
+                  <Button className="w-full" size="sm" disabled={isPending ? true : false}>
+                    {isPending ? "Loading..." : "SignIn"}
                   </Button>
                 </div>
               </div>
@@ -100,3 +119,5 @@ export default function SignInForm() {
     </div>
   );
 }
+
+export default SignInForm;

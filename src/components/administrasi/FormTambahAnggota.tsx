@@ -8,6 +8,7 @@ import { ChevronDownIcon } from '../../icons';
 import { CheckCircleIcon } from '@phosphor-icons/react';
 import { addToast } from '@heroui/react';
 import { emailNotification } from '@/action/email';
+import { useAuth } from '@/context/AuthContext';
 
 interface TambahAnggota {
   handler?: any
@@ -16,6 +17,8 @@ interface TambahAnggota {
 const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
   const [state, action, isPending] = useActionState<any, any>(handler, undefined)
   const [showPassword, setShowPassword] = useState(false);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     if (state?.success !== undefined) {
@@ -45,12 +48,31 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
     { value: "BE", label: "BE" },
     { value: "HRD", label: "HRD" },
     { value: "NP", label: "NP" },
-    { value: "KA", label: "Ketua Organisasi"}
+    { value: "DR", label: "Director"},
+    { value: "VDR", label: "Vice Director"}
   ];
+
+  const option_divisi2 = [
+    { value: "CM", label: "CM" },
+    { value: "BPH", label: "BPH" },
+    { value: "EO", label: "EO" },
+    { value: "BD", label: "BD" },
+    { value: "BE", label: "BE" },
+    { value: "HRD", label: "HRD" },
+    { value: "NP", label: "NP" },
+  ]
+
   const option_jabatan = [
     {value: "STAFF", label: "Staff"},
     {value: "MANAJER", label: "Manajer"},
+    {value: "KETUA", label: "Ketua"}
   ]
+
+  const option_jabatan2 = [
+    {value: "STAFF", label: "Staff"},
+    {value: "MANAJER", label: "Manajer"},
+  ]
+
   const handleSelectChange = (value: string) => {
     console.log("Selected value:", value);
   };
@@ -74,7 +96,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
             <Label>Divisi Anggota</Label>
             <div className="relative">
               <Select
-              options={option_divisi}
+              options={user?.role === "KETUA" ? option_divisi : option_divisi2}
               placeholder="Pilih divisi anggota"
               onChange={handleSelectChange}
               className="dark:bg-dark-90"
@@ -90,7 +112,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
             <Label>Posisi Anggota</Label>
             <div className="relative">
               <Select
-              options={option_jabatan}
+              options={user?.role === "KETUA" ? option_jabatan : option_jabatan2}
               placeholder="Pilih Jabatan"
               onChange={handleSelectChange}
               className="dark:bg-dark-900"

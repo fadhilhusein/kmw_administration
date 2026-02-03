@@ -14,7 +14,7 @@ interface TambahAnggota {
 }
 
 const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
-  const [state, action, isPending] = useActionState(handler, undefined)
+  const [state, action, isPending] = useActionState<any, any>(handler, undefined)
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {

@@ -26,7 +26,7 @@ export default async function middleware(req: NextRequest) {
         const allowedRoles = ["KETUA", "MANAJER"];
         
         // Jika role user TIDAK ada di dalam daftar yang diizinkan
-        if (!role || !allowedRoles.includes(role)) {
+        if (!role || !allowedRoles.includes(role as string)) {
             // Redirect ke halaman utama (atau halaman unauthorized lain)
             return NextResponse.redirect(new URL('/', req.nextUrl));
         }

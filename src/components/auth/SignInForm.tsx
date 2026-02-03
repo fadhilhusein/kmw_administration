@@ -9,7 +9,7 @@ import Link from "next/link";
 import React, { useActionState, useEffect, useState } from "react";
 
 const SignInForm: React.FC<{handler: any}> = ({handler}) => {
-  const [state, action, isPending] = useActionState(handler, undefined)
+  const [state, action, isPending] = useActionState<any, any>(handler, undefined)
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 

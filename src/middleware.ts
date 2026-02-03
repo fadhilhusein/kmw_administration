@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest) {
     }
 
     if (path.startsWith('/administrasi')) {
-        const allowedRoles = ["KETUA", "KADIV"];
+        const allowedRoles = ["KETUA", "MANAJER"];
         
         // Jika role user TIDAK ada di dalam daftar yang diizinkan
         if (!role || !allowedRoles.includes(role)) {

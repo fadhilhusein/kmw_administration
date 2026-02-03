@@ -158,7 +158,7 @@ export async function loginMember(state:any, formData:any) {
         // Hanya tangkap error jaringan atau crash server
         return {
             success: false,
-            message: "Terdapat kesalahan teknis silahkan hubungi admin: " + errors?.message
+            message: "Terdapat kesalahan teknis silahkan hubungi admin: " + (errors as Error)?.message
         }
     }
 

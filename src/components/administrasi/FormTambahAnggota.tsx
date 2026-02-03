@@ -45,6 +45,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
     { value: "BE", label: "BE" },
     { value: "HRD", label: "HRD" },
     { value: "NP", label: "NP" },
+    { value: "KA", label: "Ketua Organisasi"}
   ];
   const option_jabatan = [
     {value: "STAFF", label: "Staff"},

@@ -4,7 +4,7 @@ import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
 import React, { useActionState, useEffect, useState } from "react";
 import Input from "../form/input/InputField";
-import { addToast } from "@heroui/react";
+import { addToast, InputOtp } from "@heroui/react";
 
 const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
   const [state, action, isPending] = useActionState<any, any>(handler ,undefined);
@@ -69,7 +69,35 @@ const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
                   <Label>
                     Kode Aktivasi<span className="text-error-500">*</span>
                   </Label>
-                  <input
+                  <InputOtp 
+                    isRequired
+                    length={7}
+                    name="code"
+                    placeholder="Masukan kode aktivasi"
+                    allowedKeys={"^[a-zA-Z0-9]*$"}
+                    radius="none"
+                    classNames={{
+                      segmentWrapper: "gap-x-0",
+                      segment: [
+                        "relative",
+                        "h-10",
+                        "w-10",
+                        "border-y",
+                        "border-r",
+                        "first:rounded-l-md",
+                        "first:border-l",
+                        "last:rounded-r-md",
+                        "border-default-200",
+                        "data-[active=true]:border",
+                        "data-[active=true]:z-20",
+                        "data-[active=true]:ring-2",
+                        "data-[active=true]:ring-offset-2",
+                        "data-[active=true]:ring-offset-background",
+                        "data-[active=true]:ring-foreground",
+                      ],
+                    }}
+                  />
+                  {/* <input
                     type="text"
                     id="code"
                     name="code"
@@ -77,7 +105,7 @@ const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
                     placeholder="Masukan kode aktivasi"
                     className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     required
-                  />
+                  /> */}
                 </div>
 
                 {/* Password */}

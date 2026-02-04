@@ -6,7 +6,7 @@ import Input from '../form/input/InputField';
 import Select from '../form/Select';
 import { ChevronDownIcon } from '../../icons';
 import { CheckCircleIcon } from '@phosphor-icons/react';
-import { addToast } from '@heroui/react';
+import { addToast, Button } from '@heroui/react';
 import { emailNotification } from '@/action/email';
 import { useAuth } from '@/context/AuthContext';
 
@@ -125,7 +125,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
             </div>
           </div>
           <div>
-            <button disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</button>
+            <Button disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</Button>
           </div>
         </form>
       </ComponentCard>

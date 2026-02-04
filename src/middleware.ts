@@ -7,7 +7,13 @@ const publicRoutes = ['/signin', '/signup']
 export default async function middleware(req: NextRequest) {
 
     const path = req.nextUrl.pathname;
-    const isProtected = protectedRoutes.includes(path)
+    const isProtected = protectedRoutes.some(route => {
+        // 1. Jika routenya adalah root '/', kita harus exact match
+        if (route === '/') return path === '/';
+        
+        // 2. Untuk route lain (misal /staff), kita cek apakah path DIMULAI dengan itu
+        return path.startsWith(route);
+    });
     const isPublic = publicRoutes.includes(path)
 
     const user = await getAuthUser();

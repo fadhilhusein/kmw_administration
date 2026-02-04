@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import getAuthUser from "./libs/getAuthUser";
 
-const protectedRoutes = ['/']
+const protectedRoutes = ['/', '/staff']
 const publicRoutes = ['/signin', '/signup']
 
 export default async function middleware(req: NextRequest) {
 
     const path = req.nextUrl.pathname;
-    const isProtected = protectedRoutes.includes(path) || path.startsWith("/posts/edit") || path.startsWith("/posts/show")
+    const isProtected = protectedRoutes.includes(path)
     const isPublic = publicRoutes.includes(path)
 
     const user = await getAuthUser();

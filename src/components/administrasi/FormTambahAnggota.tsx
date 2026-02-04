@@ -125,7 +125,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
             </div>
           </div>
           <div>
-            <Button disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</Button>
+            <Button type='submit' disabled={isPending ? true : false} className='bg-blue-500 px-4 py-2 rounded-md text-white'>{isPending ? "Loading..." : "Submit"}</Button>
           </div>
         </form>
       </ComponentCard>

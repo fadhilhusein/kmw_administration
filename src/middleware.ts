@@ -25,7 +25,7 @@ export default async function middleware(req: NextRequest) {
     }
 
     if (isPublic && nim) {
-        return NextResponse.redirect(new URL('/signup', req.nextUrl))
+        return NextResponse.redirect(new URL('/', req.nextUrl))
     }
 
     if (path.startsWith('/administrasi')) {

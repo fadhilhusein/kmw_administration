@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = 'https://kmw-backend-production.up.railway.app/api';
+const API_BASE_URL = 'https://kmw-backend-2.onrender.com/api';
 
 // API Response Types
 export interface ApiResponse<T = any> {

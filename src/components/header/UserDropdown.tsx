@@ -31,7 +31,15 @@ function toggleDropdown(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
           <Image
             width={44}
             height={44}
-            src="/images/user/owner.jpg"
+            src="/images/user/profile_light.png"
+            alt="User"
+            className="block dark:hidden"
+          />
+          <Image
+            width={44}
+            height={44}
+            src="/images/user/profile_dark.png"
+            className="hidden dark:block"
             alt="User"
           />
         </span>

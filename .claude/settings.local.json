@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find . -maxdepth 2 -name *.test.* -o -name *.spec.*)",
+      "Bash(ls:*)",
+      "Bash(find src/app -name page.tsx -exec head -5 {})",
+      "Bash(2)"
+    ]
+  }
+}

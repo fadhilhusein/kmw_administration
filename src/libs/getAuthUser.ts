@@ -7,6 +7,7 @@ export default async function getAuthUser() {
     const session = cookieStore.get("user_session")?.value
     if (session) {
         const user = await decrypt(session)
+        console.log("Authenticated user:", user);
         return user
     }
 }

@@ -135,7 +135,7 @@ const Calendar: React.FC = () => {
           events={events}
           selectable={true}
           select={handleDateSelect}
-          eventClick={handleEventClick}
+          eventClick={handleEventClick} 
           eventContent={renderEventContent}
           customButtons={{
             addEventButton: {

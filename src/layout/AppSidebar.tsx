@@ -39,7 +39,10 @@ const navItems: NavItem[] = [
   {
     icon: <UserCircleIcon />,
     name: "Menu Staff",
-    subItems: [{ name: "Dashboard", path: "/staff/dashboard", pro: false }],
+    subItems: [
+      { name: "Dashboard", path: "/staff/dashboard", pro: false },
+      { name: "Kalender", path: "/staff/calendar", pro: false }
+    ],
   },
 ];
 

@@ -71,7 +71,7 @@ const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
                   </Label>
                   <InputOtp 
                     isRequired
-                    length={7}
+                    length={9}
                     name="code"
                     placeholder="Masukan kode aktivasi"
                     allowedKeys={"^[a-zA-Z0-9]*$"}

@@ -23,7 +23,7 @@ export default function AuthLayout({
               <div className="flex flex-col items-center">
                 <h1 className="text-5xl font-bold italic bg-gradient-to-r from-[#F6BA09] to-[#E07C06] bg-clip-text text-transparent px-2">KMW FEB UNDIP</h1>
                 <p className="text-center text-gray-400 dark:text-white/60">
-                  The next level administration for collage organization
+                  The next level administration for college organization
                 </p>
               </div>
             </div>

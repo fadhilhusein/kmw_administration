@@ -38,3 +38,15 @@ export const loginSchema = z.object({
         error: "NIM yang anda masukan belum sesuai!"
     }),
 })
+
+// Staff Management Validation Schemas
+export const updateStaffSchema = z.object({
+    name: z.string().min(5, { message: "Nama minimal 5 karakter" }).optional(),
+    role: z.string().optional(),
+    divisionCode: z.string().optional(),
+    isActive: z.boolean().optional(),
+})
+
+export const deleteStaffSchema = z.object({
+    nim: z.string().min(12, { message: "NIM tidak valid" }),
+})

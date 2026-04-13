@@ -52,6 +52,7 @@ const adminItems: NavItem[] = [
     name: "Administrasi",
     subItems: [
       { name: "Dashboard Admin", path: "/administrasi/dashboard", pro: false },
+      { name: "Kelola Staf", path: "/administrasi/kelola-staf", pro: false, new: true },
       { name: "Tambah Anggota Baru", path: "/administrasi/tambah-anggota", pro: false },
     ],
   }
@@ -244,7 +245,7 @@ const AppSidebar: React.FC = () => {
     // Check if the current path matches any submenu item
     let submenuMatched = false;
     ["main", "others", "admin"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
+      const items = menuType === "main" ? navItems : menuType === "admin" ? adminItems : othersItems;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {

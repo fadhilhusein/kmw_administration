@@ -46,6 +46,36 @@ export interface LoginAccountRequest {
   password: string;
 }
 
+// Staff Management Types
+export interface Staff {
+  id: string;
+  name: string;
+  nim: string;
+  email: string;
+  role: string;
+  divisionCode: string;
+  divisionName?: string;
+  isActive: boolean;
+  createdAt?: string;
+}
+
+export interface GetStaffQuery {
+  divisionCode?: string;
+  isActive?: boolean;
+  search?: string;
+}
+
+export interface UpdateStaffRequest {
+  name?: string;
+  role?: string;
+  divisionCode?: string;
+  isActive?: boolean;
+}
+
+export interface DeleteStaffResponse {
+  message: string;
+}
+
 // API Service Class
 class ApiService {
   private async makeRequest<T>(
@@ -103,6 +133,41 @@ class ApiService {
     return this.makeRequest<ActivateAccountResponse>('/auth/activate', {
       method: 'POST',
       body: JSON.stringify(data),
+    });
+  }
+
+  // Get Staff List with optional filters
+  async getStaff(query?: GetStaffQuery): Promise<ApiResponse<Staff[]>> {
+    const params = new URLSearchParams();
+    if (query?.divisionCode) params.append('divisionCode', query.divisionCode);
+    if (query?.isActive !== undefined) params.append('isActive', query.isActive.toString());
+    if (query?.search) params.append('search', query.search);
+
+    const queryString = params.toString() ? `?${params.toString()}` : '';
+    return this.makeRequest<Staff[]>(`/staff${queryString}`, {
+      method: 'GET',
+    });
+  }
+
+  // Get Single Staff by NIM
+  async getStaffByNim(nim: string): Promise<ApiResponse<Staff>> {
+    return this.makeRequest<Staff>(`/staff/${nim}`, {
+      method: 'GET',
+    });
+  }
+
+  // Update Staff
+  async updateStaff(nim: string, data: UpdateStaffRequest): Promise<ApiResponse<Staff>> {
+    return this.makeRequest<Staff>(`/staff/${nim}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Delete Staff
+  async deleteStaff(nim: string): Promise<ApiResponse<DeleteStaffResponse>> {
+    return this.makeRequest<DeleteStaffResponse>(`/staff/${nim}`, {
+      method: 'DELETE',
     });
   }
 }

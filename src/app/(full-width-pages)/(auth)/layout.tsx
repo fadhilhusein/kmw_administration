@@ -16,13 +16,13 @@ export default function AuthLayout({
       <ThemeProvider>
         <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col dark:bg-gray-900 sm:p-0">
           {children}
-          <div className="relative lg:w-1/2 w-full h-full bg-brand-950 dark:bg-white/5 lg:grid items-center hidden overflow-hidden">
+          <div className="relative lg:w-1/2 w-full h-full bg-gradient-to-br from-blue-500 via-blue-400 to-blue-500 dark:bg-none dark:bg-white/5 lg:grid items-center hidden overflow-hidden">
             <div className="items-center justify-center  flex z-1">
               {/* <!-- ===== Common Grid Shape Start ===== --> */}
               <GridShape />
               <div className="flex flex-col items-center">
-                <h1 className="text-5xl font-bold italic bg-gradient-to-r from-[#F6BA09] to-[#E07C06] bg-clip-text text-transparent px-2">KMW FEB UNDIP</h1>
-                <p className="text-center text-gray-400 dark:text-white/60">
+                <h1 className="text-5xl font-bold italic bg-white dark:bg-gradient-to-r dark:from-[#F6BA09] dark:to-[#E07C06] bg-clip-text text-transparent px-2">KMW FEB UNDIP</h1>
+                <p className="text-center text-white dark:text-white/60">
                   The next level administration for college organization
                 </p>
               </div>

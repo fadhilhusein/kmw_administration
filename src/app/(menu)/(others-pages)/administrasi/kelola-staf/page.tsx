@@ -22,9 +22,6 @@ export default async function KelolaStafPage() {
 
   const staffList = staffResult?.success ? (staffResult.data || []) : [];
 
-  console.log("Staff List:", staffList);
-  console.log("Fetch Staff Result:", staffResult);
-
   return (
     <div>
       <div className="mb-6">

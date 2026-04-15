@@ -178,10 +178,3 @@ export async function logoutMember() {
   // 3. Redirect ke halaman Sign In
   redirect("/signin");
 }
-
-// Client-side logout helper untuk clear localStorage
-export function clearLocalStorageToken() {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('user_session');
-  }
-}

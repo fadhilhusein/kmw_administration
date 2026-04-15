@@ -1,6 +1,14 @@
 // API Configuration
 const API_BASE_URL = 'https://kmw-backend-2.onrender.com/api';
 
+// Helper to get token from localStorage
+function getToken(): string | null {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('user_session');
+  }
+  return null;
+}
+
 // API Response Types
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -82,10 +90,15 @@ class ApiService {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
+    // Get token from localStorage and add to Authorization header
+    const token = getToken();
+
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` }),
           ...options.headers,
         },
         ...options,

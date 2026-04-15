@@ -172,10 +172,16 @@ export async function logoutMember() {
   // 1. Akses cookie store
   const cookieStore = await cookies();
 
-  // 2. Hapus cookie session
-  // Pastikan nama cookie-nya sama persis dengan yang Anda set saat login ("user_session")
+  // 2. Hapus cookie session (untuk sistem lain)
   cookieStore.delete("user_session");
 
   // 3. Redirect ke halaman Sign In
   redirect("/signin");
+}
+
+// Client-side logout helper untuk clear localStorage
+export function clearLocalStorageToken() {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('user_session');
+  }
 }

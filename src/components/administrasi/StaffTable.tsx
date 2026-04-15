@@ -67,6 +67,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
   // Reset to page 1 when search changes
   useEffect(() => {
     setCurrentPage(1);
+    alert("Event onChange berjalan!")
   }, [searchTerm]);
 
   const handleEdit = (staffMember: Staff) => {
@@ -93,7 +94,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                 placeholder="Cari staf berdasarkan nama atau NIM..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 pl-11 text-sm text-gray-900 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
               />
             </div>
           </div>

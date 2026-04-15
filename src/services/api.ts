@@ -1,10 +1,15 @@
+"use server";
+import { cookies } from "next/headers";
+
 // API Configuration
 const API_BASE_URL = 'https://kmw-backend-2.onrender.com/api';
 
 // Helper to get token from localStorage
-function getToken(): string | null {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('user_session');
+async function getToken(): Promise<string | null> {
+  const cookiesStore = await cookies();
+  const tokenFromCookie = cookiesStore.get('user_session')?.value;
+  if (tokenFromCookie) {
+    return tokenFromCookie;
   }
   return null;
 }

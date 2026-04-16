@@ -20,7 +20,7 @@ export default async function KelolaStafPage() {
     user.role === "MANAJER" ? user.divisi as string : undefined
   );
 
-  const staffList = staffResult?.success ? staffResult.data : [];
+  const staffList:any = staffResult?.success ? staffResult.data : [];
 
   return (
     <div>

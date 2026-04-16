@@ -4,9 +4,11 @@ import { cookies } from "next/headers";
 const API_BASE_URL = 'https://kmw-backend-2.onrender.com/api';
 
 // Helper to get token from localStorage
-function getToken(): string | null {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('user_session');
+async function getToken() {
+  const cookieStore = await cookies();
+  const tokenFromCookie = cookieStore.get("user_session")?.value;
+  if (tokenFromCookie) {
+    return tokenFromCookie;
   }
   return null;
 }
@@ -93,7 +95,7 @@ class ApiService {
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
     // Get token from localStorage and add to Authorization header
-    const token = getToken();
+    const token = await getToken();
 
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {

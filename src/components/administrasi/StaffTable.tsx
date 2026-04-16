@@ -179,14 +179,14 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                           className="rounded p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                           title="Edit"
                         >
-                          <PencilIcon className="h-4 w-4" />
+                          <PencilIcon/>
                         </button>
                         <button
                           onClick={() => handleDelete(staffMember)}
                           className="rounded p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
                           title="Hapus"
                         >
-                          <TrashBinIcon className="h-4 w-4" />
+                          <TrashBinIcon/>
                         </button>
                       </div>
                     </TableCell>

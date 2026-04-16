@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import { deleteStaffAccount } from "@/action/staff";
 import { useActionState } from "react";
@@ -26,6 +27,7 @@ const DeleteStaffModal: React.FC<DeleteStaffModalProps> = ({
   onClose,
   staff,
 }) => {
+  const router = useRouter();
   const [state, action, isPending] = useActionState<any, any>(
     async (state: any, formData: FormData) => {
       const nim = formData.get("nim") as string;
@@ -38,10 +40,10 @@ const DeleteStaffModal: React.FC<DeleteStaffModalProps> = ({
     if (state?.success) {
       setTimeout(() => {
         onClose();
-        window.location.reload();
+        router.refresh();
       }, 1000);
     }
-  }, [state, onClose]);
+  }, [state, onClose, router]);
 
   if (!staff) return null;
 

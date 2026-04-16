@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import Badge from "@/components/ui/badge/Badge";
 import { updateStaffStatus, updateStaffRole } from "@/action/staff";
@@ -48,6 +49,7 @@ const EditStaffModal: React.FC<EditStaffModalProps> = ({
   staff,
   currentUserRole,
 }) => {
+  const router = useRouter();
   const [isActive, setIsActive] = React.useState(true);
   const [role, setRole] = React.useState("");
   const [divisionCode, setDivisionCode] = React.useState("");
@@ -83,10 +85,10 @@ const EditStaffModal: React.FC<EditStaffModalProps> = ({
     if (statusState?.success || roleState?.success) {
       setTimeout(() => {
         onClose();
-        window.location.reload();
+        router.refresh();
       }, 1000);
     }
-  }, [statusState, roleState, onClose]);
+  }, [statusState, roleState, onClose, router]);
 
   if (!staff) return null;
 

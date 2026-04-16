@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Table, TableHeader, TableBody, TableRow, TableCell } from "@/components/ui/table";
 import Badge from "@/components/ui/badge/Badge";
 import Pagination from "@/components/tables/Pagination";
@@ -47,17 +47,30 @@ const ITEMS_PER_PAGE = 10;
 
 const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null);
 
-  // Filter staff by search term
-  const filteredStaff = staff.filter(
-    (s) =>
-      s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.nim.includes(searchTerm)
-  );
+  // Debounce search term (300ms delay)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Filter staff by debounced search term (memoized for performance)
+  const filteredStaff = useMemo(() => {
+    const searchLower = debouncedSearchTerm.toLowerCase();
+    return staff.filter(
+      (s) =>
+        s.name.toLowerCase().includes(searchLower) ||
+        s.nim.includes(debouncedSearchTerm)
+    );
+  }, [staff, debouncedSearchTerm]);
 
   // Pagination
   const totalPages = Math.ceil(filteredStaff.length / ITEMS_PER_PAGE);
@@ -67,7 +80,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
   // Reset to page 1 when search changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   const handleEdit = (staffMember: Staff) => {
     setSelectedStaff(staffMember);
@@ -80,6 +93,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
   };
 
   const isKetua = currentUserRole === "KETUA";
+  const isSearching = searchTerm !== debouncedSearchTerm;
 
   return (
     <>
@@ -95,6 +109,11 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
               />
+              {isSearching && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-brand-500" />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-3">

@@ -35,7 +35,15 @@ export default async function KelolaStafPage() {
         </p>
       </div>
 
-      <StaffTable staff={staffList.data} currentUserRole={user.role as string} />
+      {staffResult?.success ? (
+        <StaffTable staff={staffList.data} currentUserRole={user.role as string} />
+      ) : (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
+          <p className="text-sm font-medium text-red-900 dark:text-red-200">
+            {staffResult?.message || "Gagal memuat data staf. Silakan coba lagi."}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

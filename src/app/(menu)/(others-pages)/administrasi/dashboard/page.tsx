@@ -1,15 +1,31 @@
-import AdministrasiMenu from "@/components/administrasi/AdministrasiMenu";
-import { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Admin | Dashboard",
-  // description: "This is Next.js Blank Page TailAdmin Dashboard Template",
-};
+import DashboardStats from "@/components/administrasi/DashboardStats";
+import KalenderTerintegrasi from "@/components/support-features/KalenderTerintegrasi";
+import Notifikasi from "@/components/support-features/Notifikasi";
+import TransparansiKas from "@/components/support-features/TransparansiKas";
+import DatabaseAnggotaCard from "@/components/administrasi(Backup)/DatabaseAnggotaCard";
+import RepositoryDokumenCard from "@/components/administrasi(Backup)/RepositoryDokumenCard";
+import SistemAbsensiCard from "@/components/administrasi(Backup)/SistemAbsensiCard";
 
-export default function BlankPage() {
+export default function DashboardPage() {
   return (
-    <div>
-      <AdministrasiMenu />
+    <div className="space-y-6">
+      {/* Welcome Header */}
+      <div>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          Selamat Datang di Dashboard
+        </h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Ringkasan aktivitas dan statistik organisasi KMW
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <DashboardStats />
+
+      {/* Transparansi Kas */}
+      <TransparansiKas />
     </div>
   );
 }

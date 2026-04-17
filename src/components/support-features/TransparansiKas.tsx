@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { DollarLineIcon, EyeIcon, CalenderIcon, DownloadIcon } from "@/icons";
+import { DollarLineIcon, EyeIcon, CalenderIcon, DownloadIcon, ChevronDownIcon } from "@/icons";
+import Select from "../form/Select";
+import Button from "../ui/button/Button";
 
 interface Transaction {
   id: number;
@@ -206,8 +208,8 @@ const TransparansiKas: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <select
+          <div className="flex items-center gap-4">
+            {/* <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
               className="px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm"
@@ -215,12 +217,28 @@ const TransparansiKas: React.FC = () => {
               <option value="2024-03">Maret 2024</option>
               <option value="2024-02">Februari 2024</option>
               <option value="2024-01">Januari 2024</option>
-            </select>
+            </select> */}
+            <div className="relative">
+              <Select
+                options={[
+                  { value: "2024-03", label: "Maret 2024" },
+                  { value: "2024-02", label: "Februari 2024" },
+                  { value: "2024-01", label: "Januari 2024" }
+                ]}
+                placeholder="Pilih Periode"
+                onChange={(value) => setSelectedPeriod(value)}
+                className="dark:bg-gray-800"
+              />
+              <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                <ChevronDownIcon/>
+              </span>
+            </div>
             
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm">
+            {/* <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm">
               <DownloadIcon className="w-4 h-4" />
               <span>Export PDF</span>
-            </button>
+            </button> */}
+            <Button variant="outline">Export PDF</Button>
           </div>
         </div>
       </div>
@@ -352,11 +370,25 @@ const TransparansiKas: React.FC = () => {
                 Daftar Transaksi
               </h3>
               <div className="flex items-center space-x-2">
-                <select className="px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm">
+                {/* <select className="px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm">
                   <option value="all">Semua Transaksi</option>
                   <option value="income">Pemasukan</option>
                   <option value="expense">Pengeluaran</option>
-                </select>
+                </select> */}
+                <div className="relative">
+                  <Select
+                    options={[
+                      { value: "all", label: "Semua Transaksi" },
+                      { value: "income", label: "Pemasukan" },
+                      { value: "expense", label: "Pengeluaran" },
+                    ]}
+                    placeholder="Filter Transaksi"
+                    onChange={(value) => console.log("Filter:", value)}
+                  />
+                  <span className="absolute text-gray-500 -translate-y-1/2 pointer-events-none right-3 top-1/2 dark:text-gray-400">
+                    <ChevronDownIcon/>
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -399,13 +431,11 @@ const TransparansiKas: React.FC = () => {
                       <td className="py-3 px-4 text-center">
                         <div className="flex items-center justify-center space-x-2">
                           <button className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
-                            <EyeIcon className="w-4 h-4 text-gray-500" />
+                            <EyeIcon className="text-gray-500" />
                           </button>
-                          {transaction.receipt && (
-                            <button className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
-                              <DownloadIcon className="w-4 h-4 text-gray-500" />
-                            </button>
-                          )}
+                          <button className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+                            <DownloadIcon className="text-gray-500" />
+                          </button>
                         </div>
                       </td>
                     </tr>

@@ -3,18 +3,19 @@ import React from "react";
 import Badge from "../ui/badge/Badge";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
 import Image from "next/image";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 
 function AdministrasiMenu() {
   return (
-    <div className="flex items-center">
-      <Image
-        alt="Under Construction"
-        src="/images/Ilustration/page-construction.svg"  
-        width={130}
-        height={30}
+    <div className="flex flex-col gap-12 items-center">
+      <DotLottieReact
+        className="h-100"
+        src="https://lottie.host/e01ef263-b845-4107-964d-abfc223481b4/BUFF87IH0Q.lottie"
+        loop
+        autoplay
       />
-      <h1 className="text-3xl">Dalam tahap pembangunan</h1>
+      <h1 className="text-3xl md:text-start text-center">Dalam tahap pembangunan</h1>
     </div>
     // <div className="grid grid-cols-1 gap-4 sm:grid-cols-4 md:gap-6">
       

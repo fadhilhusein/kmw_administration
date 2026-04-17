@@ -225,7 +225,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                 key={staffMember.nim}
                 className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
               >
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col gap-4 justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-medium text-gray-900 dark:text-white">
@@ -254,12 +254,13 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex-1 border-1 rounded-lg border-gray-200 p-1 text-center dark:border-gray-800">
                     <button
                       onClick={() => handleEdit(staffMember)}
-                      className="rounded p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      className="flex justify-center items-center gap-2 w-full rounded p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       <PencilIcon/>
+                      Edit
                     </button>
                   </div>
                 </div>

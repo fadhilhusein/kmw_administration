@@ -8,10 +8,10 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 function AdministrasiMenu() {
   return (
-    <div className="flex flex-col gap-12 items-center">
+    <div className="flex flex-col gap-8 items-center">
       <DotLottieReact
         className="h-100"
-        src="https://lottie.host/e01ef263-b845-4107-964d-abfc223481b4/BUFF87IH0Q.lottie"
+        src="https://lottie.host/0309ba7e-d861-4453-9c26-a988ed503f1d/frAm8erVG0.lottie"
         loop
         autoplay
       />

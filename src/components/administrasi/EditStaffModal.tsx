@@ -6,6 +6,7 @@ import { Modal } from "@/components/ui/modal";
 import Badge from "@/components/ui/badge/Badge";
 import { updateStaffStatus, updateStaffRole } from "@/action/staff";
 import { useActionState } from "react";
+import Radio from "../form/input/Radio";
 
 interface Staff {
   id: string;
@@ -131,7 +132,7 @@ const EditStaffModal: React.FC<EditStaffModalProps> = ({
           </h6>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <input
+              {/* <input
                 type="radio"
                 name="isActive"
                 id="active"
@@ -146,10 +147,11 @@ const EditStaffModal: React.FC<EditStaffModalProps> = ({
                 className="text-sm text-gray-700 dark:text-gray-300"
               >
                 Aktif
-              </label>
+              </label> */}
+              <Radio name="isActive" label="Aktif"  id="active" value="true" checked={isActive} onChange={() => setIsActive(true)} disabled={statusPending} />
             </div>
             <div className="flex items-center gap-3">
-              <input
+              {/* <input
                 type="radio"
                 name="isActive"
                 id="inactive"
@@ -164,7 +166,8 @@ const EditStaffModal: React.FC<EditStaffModalProps> = ({
                 className="text-sm text-gray-700 dark:text-gray-300"
               >
                 Non-Aktif
-              </label>
+              </label> */}
+              <Radio name="isActive" label="Non-Aktif" id="inactive" value="false" checked={!isActive} onChange={() => setIsActive(false)} disabled={statusPending} />
             </div>
             <input type="hidden" name="nim" value={staff.nim} />
             <button

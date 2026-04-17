@@ -200,13 +200,6 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                         >
                           <PencilIcon/>
                         </button>
-                        <button
-                          onClick={() => handleDelete(staffMember)}
-                          className="rounded p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                          title="Hapus"
-                        >
-                          <TrashBinIcon/>
-                        </button>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -266,13 +259,7 @@ const StaffTable: React.FC<StaffTableProps> = ({ staff, currentUserRole }) => {
                       onClick={() => handleEdit(staffMember)}
                       className="rounded p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
-                      <PencilIcon className="h-3.5 w-3.5" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(staffMember)}
-                      className="rounded p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                    >
-                      <TrashBinIcon className="h-3.5 w-3.5" />
+                      <PencilIcon/>
                     </button>
                   </div>
                 </div>

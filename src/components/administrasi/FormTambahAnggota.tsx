@@ -5,7 +5,7 @@ import Label from '../form/Label';
 import Input from '../form/input/InputField';
 import Select from '../form/Select';
 import { ChevronDownIcon } from '../../icons';
-import { CheckCircleIcon } from '@phosphor-icons/react';
+import { CheckCircle } from 'lucide-react';
 import { addToast, Button } from '@heroui/react';
 import { emailNotification } from '@/action/email';
 import { useAuth } from '@/context/AuthContext';

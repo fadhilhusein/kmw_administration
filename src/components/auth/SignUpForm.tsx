@@ -111,7 +111,7 @@ const ActivateAccountForm:React.FC<{handler:any}> = ({handler}) => {
                 {/* Password */}
                 <div>
                   <Label>
-                    Password<span className="text-error-500">*</span>
+                    Password Baru<span className="text-error-500">*</span>
                   </Label>
                   <div className="relative">
                     <Input

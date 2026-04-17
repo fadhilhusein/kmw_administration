@@ -7,6 +7,7 @@ import TransparansiKas from "@/components/support-features/TransparansiKas";
 import DatabaseAnggotaCard from "@/components/administrasi(Backup)/DatabaseAnggotaCard";
 import RepositoryDokumenCard from "@/components/administrasi(Backup)/RepositoryDokumenCard";
 import SistemAbsensiCard from "@/components/administrasi(Backup)/SistemAbsensiCard";
+import DashboardEvent from "@/components/administrasi/DashboardEvent";
 
 export default function DashboardPage() {
   return (
@@ -23,6 +24,9 @@ export default function DashboardPage() {
 
       {/* Stats Cards */}
       <DashboardStats />
+
+      {/* Event Calendar */}
+      <DashboardEvent />
 
       {/* Transparansi Kas */}
       <TransparansiKas />

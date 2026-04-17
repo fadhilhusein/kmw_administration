@@ -10,7 +10,7 @@ import {
   ArrowUpIcon,
   ArrowDownIcon,
 } from "@/icons";
-import { BellSimpleIcon } from "@phosphor-icons/react";
+import { Bell, MedalIcon } from "lucide-react";
 
 interface StatCard {
   icon: React.ReactNode;
@@ -49,15 +49,15 @@ export const DashboardStats: React.FC = () => {
       description: "Event bulan ini",
     },
     {
-      icon: <BellSimpleIcon className="w-6 h-6" />,
-      title: "Notifikasi Baru",
+      icon: <MedalIcon className="w-6 h-6" />,
+      title: "Total Prestasi",
       value: "12",
       trend: {
         value: "4",
         direction: "neutral",
         color: "info",
       },
-      description: "Perlu ditinjau",
+      description: "Diperoleh tahun ini",
     },
     {
       icon: <DollarLineIcon className="w-6 h-6 text-gray-800 dark:text-white/90" />,

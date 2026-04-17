@@ -23,7 +23,7 @@ import {
 } from "../icons/index";
 import SidebarWidget from "./SidebarWidget";
 
-import {BellIcon, IdentificationBadgeIcon} from "@phosphor-icons/react";
+import { Bell, IdCard } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 type NavItem = {
@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
 
 const adminItems: NavItem[] = [
   {
-    icon: <IdentificationBadgeIcon width={24} height={24} />,
+    icon: <IdCard width={24} height={24} />,
     name: "Administrasi",
     subItems: [
       { name: "Dashboard Admin", path: "/administrasi/dashboard", pro: false },

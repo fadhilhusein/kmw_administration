@@ -1,5 +1,6 @@
 import { confirmResetPassword } from "@/action/auth";
 import { Metadata } from "next";
+import { Suspense } from "react";
 import ConfirmResetPasswordForm from "@/components/auth/ConfirmResetPasswordForm";
 
 export const metadata: Metadata = {
@@ -9,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function ConfirmResetPassword() {
-    return <ConfirmResetPasswordForm handler={confirmResetPassword}/>;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ConfirmResetPasswordForm handler={confirmResetPassword}/>
+        </Suspense>
+    );
 }

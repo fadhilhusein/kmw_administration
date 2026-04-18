@@ -344,7 +344,7 @@ const AppSidebar: React.FC = () => {
       <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
         <nav className="mb-6">
           <div className="flex flex-col gap-4">
-            {user?.role === "MANAJER" || user?.role === "KETUA" ? (
+            {user?.role === "MANAJER" || user?.role === "KETUA" || user?.role === "WAKIL_KETUA" || user?.role === "ADMIN" ? (
 
             <div>
               <h2

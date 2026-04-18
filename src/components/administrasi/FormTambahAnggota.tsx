@@ -95,7 +95,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
             <Label>Divisi Anggota</Label>
             <div className="relative">
               <Select
-              options={user?.role === "KETUA" ? option_divisi : option_divisi2}
+              options={user?.role === "KETUA" || user?.role === "ADMIN" ? option_divisi : option_divisi2}
               placeholder="Pilih divisi anggota"
               onChange={handleSelectChange}
               className="dark:bg-dark-90"

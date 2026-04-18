@@ -111,6 +111,13 @@ const SignInForm: React.FC<{handler: any}> = ({handler}) => {
                 >
                   Activate Account
                 </Link>
+                {' '}atau{' '}
+                <Link
+                  href="/forget_password"
+                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                >
+                  Reset Password
+                </Link>
               </p>
             </div>
           </div>

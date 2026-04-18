@@ -1,8 +1,8 @@
 "use server"
 
-import { loginSchema, activateScheme, registerSchema } from "@/libs/rule";
+import { loginSchema, activateScheme, registerSchema, resetPasswordSchema, confirmResetPasswordSchema } from "@/libs/rule";
 import { createSession } from "@/libs/session";
-import { apiService, RegisterMemberRequest, ActivateAccountRequest, LoginAccountRequest } from "@/services/api";
+import { apiService, RegisterMemberRequest, ActivateAccountRequest, LoginAccountRequest, ResetPasswordRequest } from "@/services/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -167,6 +167,100 @@ export async function loginMember(state:any, formData:any) {
         redirect("/");
     }
 }
+
+export async function resetPassword(state?:any, formData?:any) {
+    const NIM_ANGGOTA = formData?.get("nim");
+
+    // Validasi Input
+    const validatedFields = resetPasswordSchema.safeParse({
+        nim: NIM_ANGGOTA,
+    })
+
+    // Kembalikan error apabila validasi gagal
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            fields: {
+                nim: NIM_ANGGOTA
+            }
+        }
+    }
+
+    const resetData: ResetPasswordRequest = {
+        nim: NIM_ANGGOTA
+    }
+
+    try {
+        const response = await apiService.requestPasswordReset(resetData);
+
+        if (response?.success) {
+            return {
+                success: true,
+                message: response.data || "Permintaan reset password berhasil, silahkan cek email anda!"
+            }
+        } else {
+            return {
+                success: false,
+                message: response.error || "Gagal mengirimkan email reset password"
+            }
+        }
+
+    } catch (errors) {
+        return {
+            success: false,
+            message: "Terdapat kesalahan teknis silahkan hubungi admin: " + (errors as Error)?.message
+        }
+    }
+}
+
+export async function confirmResetPassword(state:any, formData:any) {
+    const TOKEN = formData.get("token");
+    const NIM_ANGGOTA = formData.get("nim");
+    const PASSWORD_BARU = formData.get("password");
+
+    // Validasi Input
+    const validatedFields = confirmResetPasswordSchema.safeParse({
+        password: PASSWORD_BARU
+    })
+
+    // Kembalikan error apabila validasi gagal
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            fields: {
+                password: PASSWORD_BARU
+            }
+        }
+    }
+
+    const confirmData = {
+        nim: NIM_ANGGOTA,
+        token: TOKEN,
+        password: PASSWORD_BARU
+    }
+
+    try {
+        const response = await apiService.confirmResetPassword(confirmData);
+
+        if (response?.success) {
+            return {
+                success: true,
+                message: response.data?.message || "Password berhasil direset!"
+            }
+        } else {
+            return {
+                success: false,
+                message: response.error || "Gagal mereset password"
+            }
+        }
+    } catch (errors) {
+        return {
+            success: false,
+            message: "Terdapat kesalahan teknis silahkan hubungi admin: " + (errors as Error)?.message
+        }
+    }
+}
+
 
 export async function logoutMember() {
   // 1. Akses cookie store

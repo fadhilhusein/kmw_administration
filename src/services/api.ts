@@ -53,9 +53,29 @@ export interface ActivateAccountResponse {
   message: string;
 }
 
+// Activate Account Types
+export interface ConfirmResetPasswordRequest {
+  nim: string;
+  token: string;
+  password: string;
+}
+
+export interface ConfirmResetPasswordResponse {
+  message: string;
+}
+
 export interface LoginAccountRequest {
   nim: string;
   password: string;
+}
+
+// Rest Password Types
+export interface ResetPasswordRequest {
+  nim: string;
+}
+
+export interface ResetPasswordResponse {
+  message: string;
 }
 
 // Staff Management Types
@@ -127,6 +147,22 @@ class ApiService {
         error: error instanceof Error ? error.message : 'Network error',
       };
     }
+  }
+
+  // Reset Password
+  async requestPasswordReset(data: ResetPasswordRequest): Promise<ApiResponse<ResetPasswordResponse>> {
+    return this.makeRequest<ResetPasswordResponse>('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Confirm Reset Password
+  async confirmResetPassword(data: ConfirmResetPasswordRequest): Promise<ApiResponse<ConfirmResetPasswordResponse>> {
+    return this.makeRequest<ConfirmResetPasswordResponse>('/auth/confirm-reset-password', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
   }
 
   // Register Member

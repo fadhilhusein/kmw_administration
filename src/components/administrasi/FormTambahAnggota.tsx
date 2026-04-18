@@ -28,7 +28,7 @@ const FormTambahAnggota:React.FC<TambahAnggota> = ({handler}) => {
           description: "Anggota baru berhasil ditambahkan",
           color: "success",
         })
-        emailNotification(state.message?.data?.email, state.message?.data?.name, state.message?.data?.activationCode);
+        emailNotification("activation", state.message?.data?.email, state.message?.data?.name, state.message?.data?.activationCode);
       } else if (!state.success) {
         addToast({
           title: "Gagal menambah anggota",

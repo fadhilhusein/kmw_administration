@@ -33,6 +33,32 @@ export const activateScheme = z.object({
             .trim(),
 })
 
+export const confirmResetPasswordSchema = z.object({
+    password: z.string()
+            .min(1, {
+                message: "Harus memasukan password"
+            })
+            .min(5, {
+                message: "Password setidaknya 5 karakter"
+            })
+            .regex(/[a-zA-Z]/, {
+                message: "Mengandung setidaknya huruf besar dan kecil!"
+            })
+            .regex(/[0-9]/, {
+                message: "Mengandung setidaknya 1 angka"
+            })
+            .regex(/[^a-zA-Z0-9]/, {
+                message: "Mengandung setidaknya 1 karakter spesial"
+            })
+            .trim(),
+})
+
+export const resetPasswordSchema = z.object({
+    nim: z.string().min(12, {
+        error: "NIM yang anda masukan belum sesuai!"
+    }),
+})
+
 export const loginSchema = z.object({
     nim: z.string().min(12, {
         error: "NIM yang anda masukan belum sesuai!"
@@ -50,3 +76,4 @@ export const updateStaffSchema = z.object({
 export const deleteStaffSchema = z.object({
     nim: z.string().min(12, { message: "NIM tidak valid" }),
 })
+
